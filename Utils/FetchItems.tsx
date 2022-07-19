@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {FlatList, ActivityIndicator, Text, View, ScrollView, Button, LogBox, ListRenderItemInfo} from "react-native";
 
 interface Props {
+    path: string;
 }
 
 interface Currency {
