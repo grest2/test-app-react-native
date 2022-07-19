@@ -2,14 +2,20 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import FetchWeatherComponent, {FetchWeatherComp} from "../Utils/FetchWeather";
+import {FetchWeatherComp} from "../Utils/FetchWeather";
+import {InputText} from "../components/InputComponent";
 
 export default function TabTwoScreen() {
+  var valueText = "Moscow"
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tab Two</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <FetchWeatherComp path="/Utils/FetchWeather.tsx"/>
+      <InputText text={ valueText }/>
+      <FetchWeatherComp
+          path="/Utils/FetchWeather.tsx"
+          cityValue={valueText}
+      />
     </View>
   );
 }

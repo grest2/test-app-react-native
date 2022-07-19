@@ -1,5 +1,5 @@
 import {Component, useEffect, useState} from "react";
-import {FlatList, ListRenderItem, ListRenderItemInfo, Text, View} from "react-native";
+import {FlatList, ListRenderItem, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
 
 interface Weather {
     temperature: string;
@@ -16,18 +16,20 @@ interface DayWeather {
 
 interface FetchWeatherProps {
     path: string;
+    cityValue: string;
 }
 
 export const FetchWeatherComp = (props: FetchWeatherProps) => {
-    const [dataSource, setData] = useState<Weather>({ temperature : "", wind : "ebanoe govno", forecast : [], description : ""});
+    const [dataSource, setData] = useState<Weather>({ temperature : "", wind : "", forecast : [], description : ""});
 
     const fetchWeather = () => {
-        fetch("https://goweather.herokuapp.com/weather/Moscow")
+        fetch(`https://goweather.herokuapp.com/weather/${props.cityValue}`)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json.data)
+                console.log(json)
                 setData(json)
             })
+            .catch((error) => console.log(error))
     }
     useEffect(() => {
         fetchWeather()
@@ -35,7 +37,11 @@ export const FetchWeatherComp = (props: FetchWeatherProps) => {
 
     return (
         <View>
-            <Text>{dataSource.wind}</Text>
+            <Text style = { styles.headerText }>{props.cityValue}</Text>
+            <Text>Wind: {dataSource.wind}</Text>
+            <Text>Temperature: {dataSource.temperature}</Text>
+            <Text>Description: {dataSource.description}</Text>
+            <Text style = {styles.listHeaderStyle}>Others days</Text>
             <FlatList
                 data={dataSource.forecast}
                 renderItem={(item: ListRenderItemInfo<DayWeather>) => <Text>{item.item.temperature}</Text>}
@@ -45,28 +51,12 @@ export const FetchWeatherComp = (props: FetchWeatherProps) => {
     );
 }
 
-// export default function FetchWeatherComponent(props: FetchWeatherProps) {
-//     const [dataSource, setData] = useState(null);
-//
-//     const fetchWeather = () => {
-//         fetch("https://goweather.herokuapp.com/weather/Moscow")
-//             .then((response) => response.json())
-//             .then((json) => {
-//                 setData(json)
-//                 console.log(json)
-//             })
-//         useEffect(() => {
-//             fetchWeather()
-//         }, []);
-//
-//         return (
-//             <View>
-//                 <FlatList
-//                     data = {dataSource}
-//                     renderItem={(item: ListRenderItemInfo<Weather>) => <Text>{item.item.temperature}</Text>}
-//                     keyExtractor = {(item) => item.description.toString()}
-//                 />
-//             </View>
-//         );
-//     }
-// }
+const styles = StyleSheet.create({
+    headerText: {
+        fontWeight: 'bold'
+    },
+    listHeaderStyle: {
+        fontWeight: 'bold',
+        paddingTop: 12
+    }
+})
