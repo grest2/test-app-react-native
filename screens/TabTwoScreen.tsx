@@ -4,20 +4,24 @@ import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
 import {FetchWeatherComp} from "../Utils/FetchWeather";
 import {InputText} from "../components/InputComponent";
+import {useState} from "react";
 
 export default function TabTwoScreen() {
-  var valueText = "Moscow"
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <InputText text={ valueText }/>
-      <FetchWeatherComp
-          path="/Utils/FetchWeather.tsx"
-          cityValue={valueText}
-      />
-    </View>
-  );
+      const [text, setText] = useState("Moscow");
+      return (
+        <View style={styles.container}>
+          <Text style={styles.title}>Weather</Text>
+          <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+          <InputText
+              value={ text }
+              onChange={(text) => setText(text)}
+          />
+          <FetchWeatherComp
+              path="/Utils/FetchWeather.tsx"
+              cityValue={text}
+          />
+        </View>
+      );
 }
 
 const styles = StyleSheet.create({

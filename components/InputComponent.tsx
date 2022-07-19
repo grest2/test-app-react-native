@@ -2,17 +2,16 @@ import {useState} from "react";
 import {SafeAreaView, StyleSheet, TextInput} from "react-native";
 
 interface InputProps {
-    text: string;
+    value: string;
+    onChange: (text: string) => void;
 }
 
 export const InputText = (props: InputProps) => {
-    const [text, onChangeText] = useState(props.text)
-
     return (
         <TextInput
             style={styles.input}
-            onChangeText={onChangeText}
-            value={text}
+            onChangeText={props.onChange}
+            value={props.value}
         />
     );
 }

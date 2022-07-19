@@ -23,6 +23,7 @@ export const FetchWeatherComp = (props: FetchWeatherProps) => {
     const [dataSource, setData] = useState<Weather>({ temperature : "", wind : "", forecast : [], description : ""});
 
     const fetchWeather = () => {
+        console.log(props.cityValue.toString().replace(/\s/g, ""))
         fetch(`https://goweather.herokuapp.com/weather/${props.cityValue}`)
             .then((response) => response.json())
             .then((json) => {
