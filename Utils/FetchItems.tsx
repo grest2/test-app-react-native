@@ -12,7 +12,12 @@ export default class FetchItems extends Component<any, any> {
             .then((response) => response.json())
             .then((json) => {
 
+                this.state = {
+                    dataSource: json
+                }
+
                 this.setState({
+                    isLoading: true,
                     dataSource: json.currencyes
                 })
                 console.log(this.state.dataSource)
