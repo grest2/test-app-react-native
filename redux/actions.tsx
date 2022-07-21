@@ -4,3 +4,21 @@
 //         type: SET_CITY_NAME,
 //         payload: name,
 // })
+
+import {Weather} from "../Utils/FetchWeather";
+
+export const SET_WEATHER = 'SET_WEATHER';
+
+export interface SetCityNameAction {
+    type: string;
+    payload: string;
+}
+
+export const setWeather = (payload: Weather) => ({
+    type: SET_WEATHER,
+    payload: payload
+});
+
+export default {
+    setWeather,
+};

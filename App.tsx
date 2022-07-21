@@ -7,14 +7,17 @@ import thunk from 'redux-thunk';
 import Navigation from './navigation';
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
 import {Provider} from "react-redux";
+import weatherTabReducer from "./redux/reducers";
 
-const rootReducer = combineReducers(() => {
-
-})
+const rootReducer = combineReducers({
+  weatherTabReducer,
+});
 
 const reducer = (state: unknown, action: never) => (state ?? {});
 
-export const configureStore = createStore(reducer, applyMiddleware(thunk));
+export const configureStore = createStore(rootReducer, applyMiddleware(thunk));
+
+export type AppDispatch = typeof configureStore.dispatch
 
 export default function App() {
   const isLoadingComplete = useCachedResources();

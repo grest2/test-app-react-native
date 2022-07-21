@@ -1,7 +1,18 @@
 import {Component, useEffect, useState} from "react";
 import {FlatList, ListRenderItem, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
+import {ActionCreator} from "redux";
+import {setWeather} from "../redux/actions";
+import {useDispatch} from "react-redux";
+import {configureStore} from "../App";
+import {useAppDispatch} from "../hooks/ReduxHooks";
 
-interface Weather {
+
+export interface WeatherTabState {
+    weather: Weather;
+    name: string;
+}
+
+export interface Weather {
     temperature: string;
     wind: string;
     description: string;
@@ -22,12 +33,14 @@ interface FetchWeatherProps {
 export const FetchWeatherComp = (props: FetchWeatherProps) => {
     const [dataSource, setData] = useState<Weather>({ temperature : "", wind : "", forecast : [], description : ""});
 
+    const dispatch = useDispatch()
+
     const fetchWeather = () => {
-        console.log(props.cityValue.toString().replace(/\s/g, ""))
         fetch(`https://goweather.herokuapp.com/weather/${props.cityValue}`)
             .then((response) => response.json())
             .then((json) => {
                 console.log(json)
+                dispatch(setWeather(json))
                 setData(json)
             })
             .catch((error) => console.log(error))
