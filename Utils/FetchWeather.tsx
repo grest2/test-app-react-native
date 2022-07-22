@@ -1,10 +1,7 @@
-import {Component, useEffect, useState} from "react";
-import {FlatList, ListRenderItem, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
-import {ActionCreator} from "redux";
+import {useEffect} from "react";
+import {FlatList, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
 import {setWeather} from "../redux/actions";
-import {useDispatch} from "react-redux";
-import {configureStore} from "../App";
-import {useAppDispatch} from "../hooks/ReduxHooks";
+import {useAppDispatch, useAppSelector} from "../hooks/ReduxHooks";
 
 
 export interface WeatherTabState {
@@ -31,33 +28,32 @@ interface FetchWeatherProps {
 }
 
 export const FetchWeatherComp = (props: FetchWeatherProps) => {
-    const [dataSource, setData] = useState<Weather>({ temperature : "", wind : "", forecast : [], description : ""});
 
-    const dispatch = useDispatch()
+    const state = useAppSelector((state) => state.weatherState);
+    const useDispatch = useAppDispatch();
 
     const fetchWeather = () => {
         fetch(`https://goweather.herokuapp.com/weather/${props.cityValue}`)
             .then((response) => response.json())
             .then((json) => {
-                console.log(json)
-                dispatch(setWeather(json))
-                setData(json)
+                useDispatch(setWeather(json));
             })
             .catch((error) => console.log(error))
     }
     useEffect(() => {
         fetchWeather()
+        console.log(state, state)
     }, []);
 
     return (
         <View>
             <Text style = { styles.headerText }>{props.cityValue}</Text>
-            <Text>Wind: {dataSource.wind}</Text>
-            <Text>Temperature: {dataSource.temperature}</Text>
-            <Text>Description: {dataSource.description}</Text>
+            <Text>Wind: {state.weather.wind}</Text>
+            <Text>Temperature: {state.weather.temperature}</Text>
+            <Text>Description: {state.weather.description}</Text>
             <Text style = {styles.listHeaderStyle}>Others days</Text>
             <FlatList
-                data={dataSource.forecast}
+                data={state.weather.forecast}
                 renderItem={(item: ListRenderItemInfo<DayWeather>) => <Text>{item.item.temperature}</Text>}
                 keyExtractor={(item) => item.day.toString()}
             />

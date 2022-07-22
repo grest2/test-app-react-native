@@ -5,15 +5,16 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import thunk from 'redux-thunk';
 import Navigation from './navigation';
-import {applyMiddleware, combineReducers, legacy_createStore as createStore} from 'redux';
-import {Provider} from "react-redux";
-import weatherTabReducer from "./redux/reducers";
+import {Action, applyMiddleware, combineReducers, Dispatch, legacy_createStore as createStore} from 'redux';
+import {connect, Provider} from "react-redux";
+import {AppState, cryptoTabReducer, weatherTabReducer} from "./redux/reducers";
+import {SET_CRYPTO} from "./redux/actions";
+import {Currency} from "./Utils/FetchItems";
 
 const rootReducer = combineReducers({
-  weatherTabReducer,
+    weatherState: weatherTabReducer,
+    cryptoState: cryptoTabReducer,
 });
-
-const reducer = (state: unknown, action: never) => (state ?? {});
 
 export const configureStore = createStore(rootReducer, applyMiddleware(thunk));
 
@@ -26,7 +27,6 @@ export default function App() {
   if (!isLoadingComplete) {
     return null;
   } else {
-    console.log(configureStore)
     return (
         <Provider store = {configureStore}>
           <SafeAreaProvider>

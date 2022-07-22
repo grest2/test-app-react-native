@@ -1,5 +1,6 @@
-import {SET_WEATHER, SetCityNameAction} from "./actions";
+import {SET_CRYPTO, SET_WEATHER, SetCityNameAction} from "./actions";
 import {WeatherTabState} from "../Utils/FetchWeather";
+import {Currency} from "../Utils/FetchItems";
 
 type Action = {
     type: string,
@@ -8,12 +9,17 @@ type Action = {
 
 export type AppState = {
     weatherState: WeatherTabState,
+    cryptoState: CryptoTabState
 }
 
 
-const initialState: WeatherTabState = {
+export interface CryptoTabState {
+    crypto: Array<Currency>;
+}
+
+const initWeatherState: WeatherTabState = {
     weather: {
-        description: "",
+        description: "test",
         wind: "",
         temperature: "",
         forecast: []
@@ -21,10 +27,15 @@ const initialState: WeatherTabState = {
     name: "Moscow"
 }
 
-const weatherTabReducer = (state: WeatherTabState = initialState, action: Action) => {
+const initCryptoState: CryptoTabState = {
+    crypto: []
+}
+
+export const weatherTabReducer = (state: WeatherTabState = initWeatherState, action: Action) => {
     switch(action.type) {
         case SET_WEATHER: {
             console.log("_LOG_ Reducer has work")
+            console.table(action.payload)
             return {
                 ... state,
                 weather: action.payload
@@ -35,4 +46,22 @@ const weatherTabReducer = (state: WeatherTabState = initialState, action: Action
             return state;
     }
 }
-export default weatherTabReducer;
+
+const initialState: AppState = {
+    cryptoState: initCryptoState,
+    weatherState: initWeatherState
+};
+
+export const cryptoTabReducer = (state: CryptoTabState = initCryptoState, action: Action): CryptoTabState => {
+    switch (action.type) {
+        case SET_CRYPTO: {
+            console.log("_LOG_ Reducer for crypto has work");
+            return {
+                crypto: action.payload
+            };
+        }
+
+        default:
+           return state;
+    }
+}

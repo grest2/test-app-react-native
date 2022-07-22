@@ -7,15 +7,11 @@ import {InputText} from "../components/InputComponent";
 import {useState} from "react";
 
 import {connect, useSelector} from "react-redux";
-import {SetWeatherAction} from "../redux/actions";
-import weatherTabReducer from "../redux/reducers";
 import {InitialState} from "@react-navigation/native";
 import {bindActionCreators} from "redux";
 
 export default function TabTwoScreen() {
       const [text, setText] = useState("Moscow");
-      const weather = useSelector((state: WeatherTabState) => state.weather);
-      console.log(`_LOG_ weather ${weather}`)
       return (
         <View style={styles.container}>
           <Text style={styles.title}>Weather</Text>
@@ -32,10 +28,6 @@ export default function TabTwoScreen() {
       );
 }
 
-const mapStateToProps = (state: WeatherTabState) => {
-    const { weather } = state
-    return { weather }
-}
 
 const styles = StyleSheet.create({
   container: {
