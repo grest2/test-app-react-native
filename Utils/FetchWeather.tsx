@@ -41,8 +41,7 @@ export const FetchWeatherComp = (props: FetchWeatherProps) => {
             .catch((error) => console.log(error))
     }
     useEffect(() => {
-        fetchWeather()
-        console.log(state, state)
+        fetchWeather();
     }, []);
 
     return (

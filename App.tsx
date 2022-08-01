@@ -10,13 +10,24 @@ import {connect, Provider} from "react-redux";
 import {AppState, cryptoTabReducer, weatherTabReducer} from "./redux/reducers";
 import {SET_CRYPTO} from "./redux/actions";
 import {Currency} from "./Utils/FetchItems";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { persistStore, persistReducer } from "redux-persist";
+import {PersistGate} from "redux-persist/integration/react";
 
 const rootReducer = combineReducers({
     weatherState: weatherTabReducer,
     cryptoState: cryptoTabReducer,
 });
 
-export const configureStore = createStore(rootReducer, applyMiddleware(thunk));
+const persistConfig = {
+    key: 'root',
+    storage: AsyncStorage
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const configureStore = createStore(persistedReducer, applyMiddleware(thunk));
+let persistor = persistStore(configureStore)
 
 export type AppDispatch = typeof configureStore.dispatch
 
@@ -29,10 +40,12 @@ export default function App() {
   } else {
     return (
         <Provider store = {configureStore}>
-          <SafeAreaProvider>
-            <Navigation colorScheme={colorScheme} />
-            <StatusBar />
-          </SafeAreaProvider>
+            <PersistGate persistor={persistor}>
+                <SafeAreaProvider>
+                    <Navigation colorScheme={colorScheme} />
+                    <StatusBar />
+                </SafeAreaProvider>
+            </PersistGate>
         </Provider>
     );
   }
