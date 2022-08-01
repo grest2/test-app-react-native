@@ -10,7 +10,8 @@ import {connect, Provider} from "react-redux";
 import {AppState, cryptoTabReducer, weatherTabReducer} from "./redux/reducers";
 import {SET_CRYPTO} from "./redux/actions";
 import {Currency} from "./Utils/FetchItems";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 import { persistStore, persistReducer } from "redux-persist";
 import {PersistGate} from "redux-persist/integration/react";
 
