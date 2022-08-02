@@ -1,8 +1,7 @@
 import {Currency, NavParams} from "../Utils/FetchItems";
 import React from "react";
-import {Route, Text, View} from "react-native";
+import {Text, View} from "react-native";
 import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
-
 
 interface Props {
     navigation: NavigationScreenProp<NavigationState, NavigationParams>;
@@ -25,12 +24,13 @@ export class CryptoInfoViewInner extends React.Component<Props, State> {
 
     render() {
         const { navigation, route } = this.props
+        const { crypto } = route.params
         console.log(route.params.crypto);
         return (
             <View>
-                <Text> Test </Text>
-                <Text> Crypto Name: {route.params.crypto.symbol}</Text>
-                <Text> Crypto price: {route.params.crypto.priceUsd}$</Text>
+                <Text> Crypto name: {crypto.name} </Text>
+                <Text> Crypto symbol: {crypto.symbol}</Text>
+                <Text> Crypto price: {crypto.priceUsd}$</Text>
             </View>
         )
     }
