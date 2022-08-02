@@ -4,9 +4,15 @@ import {connect} from "react-redux";
 import {SET_CRYPTO} from "../redux/actions";
 import {Action, Dispatch} from "redux";
 import {AppState, CryptoTabState} from "../redux/reducers";
+import {CryptoInfoView} from "../views/CryptoInfoView";
+import {NavigationScreenProp, NavigationState} from "react-navigation";
 
 interface ReduxProps {
     state: CryptoTabState;
+}
+
+export interface NavParams {
+    crypto: Currency
 }
 
 interface ReduxActions {
@@ -14,6 +20,7 @@ interface ReduxActions {
 }
 
 interface OwnProps {
+    navigation: NavigationScreenProp<ReduxProps, NavParams>;
 }
 
 type Props = ReduxProps & ReduxActions & OwnProps;
@@ -21,6 +28,8 @@ type Props = ReduxProps & ReduxActions & OwnProps;
 export interface Currency {
     id: string;
     name: string;
+    symbol: string;
+    priceUsd: string;
 }
 
 interface State {
@@ -29,6 +38,9 @@ interface State {
 }
 
 export class FetchItemsInner extends React.Component<Props, State> {
+    static navigationOptions = {
+        title: "Crypto"
+    };
 
     constructor(props: Props) {
         super(props);
@@ -55,7 +67,8 @@ export class FetchItemsInner extends React.Component<Props, State> {
                 <FlatList
                     data={ this.props.state.crypto }
                     renderItem={(item: ListRenderItemInfo<Currency>) =>
-                        <Text onPress={()=>console.log("_LOG_ button was pressed")}>
+                        <Text onPress={()=>this.props.navigation.navigate('CryptoInfoView',
+                            {id: item.item.id, name: item.item.name, symbol: item.item.symbol, priceUsd: item.item.priceUsd})}>
                             {item.item.name}
                         </Text>}
                     keyExtractor={(item) => item.id.toString()}

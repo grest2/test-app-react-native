@@ -12,7 +12,6 @@ export type AppState = {
     cryptoState: CryptoTabState
 }
 
-
 export interface CryptoTabState {
     crypto: Array<Currency>;
 }

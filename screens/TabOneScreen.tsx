@@ -9,14 +9,18 @@ import {AppState} from "../redux/reducers";
 import {Action, Dispatch} from "redux";
 import {SET_CRYPTO} from "../redux/actions";
 import {connect} from "react-redux";
+import {createStackNavigator} from "@react-navigation/stack";
+import {CryptoStackParamList} from "../navigation/NavigationUtils";
+import {CryptoInfoView} from "../views/CryptoInfoView";
+
+const Stack = createStackNavigator<CryptoStackParamList>();
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Crypto</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <FetchItems />
-    </View>
+      <Stack.Navigator>
+        <Stack.Screen name = "Crypto" component={FetchItems}/>
+        <Stack.Screen name = "CryptoInfoView" component={CryptoInfoView}></Stack.Screen>
+      </Stack.Navigator>
   );
 }
 
