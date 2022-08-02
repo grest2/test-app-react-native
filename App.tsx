@@ -14,6 +14,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import { persistStore, persistReducer } from "redux-persist";
 import {PersistGate} from "redux-persist/integration/react";
+import {NavigationContainer} from "@react-navigation/native";
+import {createStackNavigator} from "@react-navigation/stack";
+import TabOneScreen from "./screens/TabOneScreen";
+import TabTwoScreen from "./screens/TabTwoScreen";
+import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 
 const rootReducer = combineReducers({
     weatherState: weatherTabReducer,
@@ -33,6 +38,8 @@ export const persistor = persistStore(configureStore)
 
 export type AppDispatch = typeof configureStore.dispatch
 
+const Tab = createBottomTabNavigator();
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
@@ -43,10 +50,20 @@ export default function App() {
     return (
         <Provider store = {configureStore}>
             <PersistGate loading = {null} persistor={persistor}>
-                <SafeAreaProvider>
-                    <Navigation colorScheme={colorScheme} />
-                    <StatusBar />
-                </SafeAreaProvider>
+                    <NavigationContainer>
+                        <SafeAreaProvider>
+                            <Tab.Navigator>
+                                <Tab.Screen
+                                    name = "Crypto Screen"
+                                    component={TabOneScreen}
+                                />
+                                <Tab.Screen
+                                    name = "Weather Screen"
+                                    component={TabTwoScreen}
+                                />
+                            </Tab.Navigator>
+                        </SafeAreaProvider>
+                    </NavigationContainer>
             </PersistGate>
         </Provider>
     );

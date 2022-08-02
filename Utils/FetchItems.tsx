@@ -54,7 +54,10 @@ export class FetchItemsInner extends React.Component<Props, State> {
             <View>
                 <FlatList
                     data={ this.props.state.crypto }
-                    renderItem={(item: ListRenderItemInfo<Currency>) => <Text>{item.item.name}</Text>}
+                    renderItem={(item: ListRenderItemInfo<Currency>) =>
+                        <Text onPress={()=>console.log("_LOG_ button was pressed")}>
+                            {item.item.name}
+                        </Text>}
                     keyExtractor={(item) => item.id.toString()}
                 />
             </View>
