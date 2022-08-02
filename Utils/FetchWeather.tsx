@@ -2,6 +2,7 @@ import {useEffect} from "react";
 import {FlatList, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
 import {setWeather} from "../redux/actions";
 import {useAppDispatch, useAppSelector} from "../hooks/ReduxHooks";
+import { AsyncStorage } from "react-native";
 
 
 export interface WeatherTabState {
@@ -36,6 +37,7 @@ export const FetchWeatherComp = (props: FetchWeatherProps) => {
         fetch(`https://goweather.herokuapp.com/weather/${props.cityValue}`)
             .then((response) => response.json())
             .then((json) => {
+                console.log(json);
                 useDispatch(setWeather(json));
             })
             .catch((error) => console.log(error))

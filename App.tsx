@@ -22,13 +22,14 @@ const rootReducer = combineReducers({
 
 const persistConfig = {
     key: 'root',
-    storage: AsyncStorage
+    storage: AsyncStorage,
+    whitelist: ['cryptoState', 'weatherState']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const configureStore = createStore(persistedReducer, applyMiddleware(thunk));
-let persistor = persistStore(configureStore)
+export const persistor = persistStore(configureStore)
 
 export type AppDispatch = typeof configureStore.dispatch
 
@@ -41,7 +42,7 @@ export default function App() {
   } else {
     return (
         <Provider store = {configureStore}>
-            <PersistGate persistor={persistor}>
+            <PersistGate loading = {null} persistor={persistor}>
                 <SafeAreaProvider>
                     <Navigation colorScheme={colorScheme} />
                     <StatusBar />
