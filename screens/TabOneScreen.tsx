@@ -1,25 +1,17 @@
 import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
-import {FetchItems, Currency} from "../Utils/FetchItems";
-import {useAppDispatch} from "../hooks/ReduxHooks";
-import {AppState} from "../redux/reducers";
-import {Action, Dispatch} from "redux";
-import {SET_CRYPTO} from "../redux/actions";
-import {connect} from "react-redux";
+import {FetchItems} from "../Utils/FetchItems";
 import {createStackNavigator} from "@react-navigation/stack";
 import {CryptoStackParamList} from "../navigation/NavigationUtils";
-import {CryptoInfoView} from "../views/CryptoInfoView";
+import {CryptoInfoViewInner} from "../views/CryptoInfoView";
 
 const Stack = createStackNavigator<CryptoStackParamList>();
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
       <Stack.Navigator>
-        <Stack.Screen name = "Crypto" component={FetchItems}/>
-        <Stack.Screen name = "CryptoInfoView" component={CryptoInfoView}></Stack.Screen>
+        <Stack.Screen name = "Crypto" component={FetchItems} options={{title: 'Crypto'}}/>
+        <Stack.Screen name = "CryptoInfoView" component={CryptoInfoViewInner} options={{title: 'Crypto Info'}}></Stack.Screen>
       </Stack.Navigator>
   );
 }

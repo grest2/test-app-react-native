@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {SET_CRYPTO} from "../redux/actions";
 import {Action, Dispatch} from "redux";
 import {AppState, CryptoTabState} from "../redux/reducers";
-import {CryptoInfoView} from "../views/CryptoInfoView";
+import {CryptoInfoViewInner} from "../views/CryptoInfoView";
 import {NavigationScreenProp, NavigationState} from "react-navigation";
 
 interface ReduxProps {
@@ -67,8 +67,10 @@ export class FetchItemsInner extends React.Component<Props, State> {
                 <FlatList
                     data={ this.props.state.crypto }
                     renderItem={(item: ListRenderItemInfo<Currency>) =>
-                        <Text onPress={()=>this.props.navigation.navigate('CryptoInfoView',
-                            {id: item.item.id, name: item.item.name, symbol: item.item.symbol, priceUsd: item.item.priceUsd})}>
+                        <Text onPress={()=> {
+                            this.props.navigation.navigate<NavParams>('CryptoInfoView',
+                                {crypto: {id: item.item.id, name: item.item.name, symbol: item.item.symbol, priceUsd: item.item.priceUsd}});
+                        }}>
                             {item.item.name}
                         </Text>}
                     keyExtractor={(item) => item.id.toString()}

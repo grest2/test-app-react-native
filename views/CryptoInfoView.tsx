@@ -1,11 +1,12 @@
 import {Currency, NavParams} from "../Utils/FetchItems";
 import React from "react";
-import {Text, View} from "react-native";
+import {Route, Text, View} from "react-native";
 import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";
 
 
 interface Props {
-    navigation: NavigationScreenProp<NavigationState, NavParams>;
+    navigation: NavigationScreenProp<NavigationState, NavigationParams>;
+    route: any
 }
 
 interface State {
@@ -18,25 +19,19 @@ export class CryptoInfoViewInner extends React.Component<Props, State> {
         title: "CryptoInfoView"
     };
 
-    componentDidMount() {
-        //const {crypto} = this.props.navigation.state.params
-    }
-
     constructor(props: Props) {
         super(props);
-        console.log(this.props.navigation)
     }
 
     render() {
-        console.log();
+        const { navigation, route } = this.props
+        console.log(route.params.crypto);
         return (
             <View>
                 <Text> Test </Text>
-                {/*<Text> Crypto Name: {this.props.crypto.symbol}</Text>*/}
-                {/*<Text> Crypto price: {this.props.crypto.priceUsd}$</Text>*/}
+                <Text> Crypto Name: {route.params.crypto.symbol}</Text>
+                <Text> Crypto price: {route.params.crypto.priceUsd}$</Text>
             </View>
         )
     }
 }
-
-const mapStateToProps = (state: )
