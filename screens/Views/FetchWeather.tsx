@@ -29,7 +29,6 @@ interface FetchWeatherProps {
 }
 
 export const FetchWeatherComp = (props: FetchWeatherProps) => {
-
     const state = useAppSelector((state) => state.weatherState);
     const useDispatch = useAppDispatch();
 

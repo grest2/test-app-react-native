@@ -1,6 +1,9 @@
 import {useState} from "react";
 import {TextInput, View, StyleSheet, Button} from "react-native";
 import {InputText} from "../../components/InputComponent";
+import {EncryptedStoreWrapper} from "../../Utils/EncryptedStoreWrapper";
+import {useAppDispatch} from "../../hooks/ReduxHooks";
+import {setUser} from "../../redux/actions";
 
 interface AuthParams {
     data: string;
@@ -12,7 +15,7 @@ interface AuthDataModel {
     password: string;
 }
 
-interface User {
+export interface User {
     id: number;
     email: string;
     lastName: string;
@@ -21,6 +24,8 @@ interface User {
 export function LoginScreen( ) {
     const [login, setLogin] = useState("");
     const [password, setPassword] = useState("");
+
+    const useDispatch = useAppDispatch();
 
     const authModel = {
         login: login,
@@ -35,7 +40,12 @@ export function LoginScreen( ) {
     const onLoginClick = () => {
         fetch("http://portal.wings.sgsdt.com/api/post",{method: "POST", body: JSON.stringify(params), headers: {'Content-Type': 'application/json'}})
             .then((response) => response.json())
-            .then((json) => console.log(json))
+            .then((json) => {
+                const parsed = json;
+                
+                EncryptedStoreWrapper.saveSession(parsed.session);
+                useDispatch(setUser(parsed.response.user));
+            })
             .catch((error) => console.log(error))
     }
 
