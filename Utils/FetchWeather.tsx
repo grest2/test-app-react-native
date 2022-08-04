@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {FlatList, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
-import {setWeather} from "../redux/actions";
+import {setCounter, setWeather} from "../redux/actions";
 import {useAppDispatch, useAppSelector} from "../hooks/ReduxHooks";
 import { AsyncStorage } from "react-native";
 
@@ -44,7 +44,10 @@ export const FetchWeatherComp = (props: FetchWeatherProps) => {
     }
     useEffect(() => {
         fetchWeather();
+        useDispatch(setCounter(1));
     }, []);
+
+
 
     return (
         <View>

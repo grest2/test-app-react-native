@@ -25,7 +25,6 @@ export class CryptoInfoViewInner extends React.Component<Props, State> {
     render() {
         const { navigation, route } = this.props
         const { crypto } = route.params
-        console.log(route.params.crypto);
         return (
             <View>
                 <Text> Crypto name: {crypto.name} </Text>

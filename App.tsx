@@ -5,18 +5,23 @@ import useCachedResources from './hooks/useCachedResources';
 import useColorScheme from './hooks/useColorScheme';
 import { Provider} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
-import {NavigationContainer} from "@react-navigation/native";
+import {NavigationContainer, useNavigationContainerRef} from "@react-navigation/native";
 import TabOneScreen from "./screens/TabOneScreen";
 import TabTwoScreen from "./screens/TabTwoScreen";
 import {configureStore, persistor} from "./redux/store";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import {useEffect, useState} from "react";
 
+export const Tab = createBottomTabNavigator();
 
-const Tab = createBottomTabNavigator();
+const NAV_KEY = 'NAV_KEY';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
   const colorScheme = useColorScheme();
+
+  const [initialState, setInitialState] = useState();
 
   if (!isLoadingComplete) {
     return null;
@@ -24,7 +29,7 @@ export default function App() {
     return (
         <Provider store = {configureStore}>
             <PersistGate loading = {null} persistor={persistor}>
-                    <NavigationContainer>
+                    <NavigationContainer initialState={initialState}>
                         <SafeAreaProvider>
                             <Tab.Navigator>
                                 <Tab.Screen

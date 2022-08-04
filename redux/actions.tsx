@@ -7,9 +7,11 @@
 
 import {Weather} from "../Utils/FetchWeather";
 import {Currency} from "../Utils/FetchItems";
+import {NavigationState} from "react-navigation";
 
 export const SET_WEATHER = 'SET_WEATHER';
 export const SET_CRYPTO = 'SET_CRYPTO';
+export const SET_COUNTER = 'SET_COUNTER';
 
 export interface SetCityNameAction {
     type: string;
@@ -26,8 +28,13 @@ export const setCrypto = (payload: Array<Currency>) => ({
     payload: payload
 })
 
+export const setCounter = (payload: number) => ({
+    type: SET_COUNTER,
+    payload: payload
+})
 
 export default {
     setWeather,
-    setCrypto
+    setCrypto,
+    setCounter
 };

@@ -1,6 +1,7 @@
-import {SET_CRYPTO, SET_WEATHER, SetCityNameAction} from "./actions";
+import actions, {SET_CRYPTO, SET_COUNTER, SET_WEATHER, SetCityNameAction} from "./actions";
 import {WeatherTabState} from "../Utils/FetchWeather";
 import {Currency} from "../Utils/FetchItems";
+import {NavigationState} from "@react-navigation/routers";
 
 type Action = {
     type: string,
@@ -8,6 +9,7 @@ type Action = {
 }
 
 export type AppState = {
+    counter: number;
     weatherState: WeatherTabState,
     cryptoState: CryptoTabState
 }
@@ -48,7 +50,8 @@ export const weatherTabReducer = (state: WeatherTabState = initWeatherState, act
 
 const initialState: AppState = {
     cryptoState: initCryptoState,
-    weatherState: initWeatherState
+    weatherState: initWeatherState,
+    counter: 0,
 };
 
 export const cryptoTabReducer = (state: CryptoTabState = initCryptoState, action: Action): CryptoTabState => {
@@ -62,5 +65,17 @@ export const cryptoTabReducer = (state: CryptoTabState = initCryptoState, action
 
         default:
            return state;
+    }
+}
+
+export const counterReducer = (state: number = 0, action: Action): number => {
+    console.log(state)
+    switch (action.type) {
+        case SET_COUNTER: {
+            return state + action.payload
+        }
+
+        default:
+            return state;
     }
 }

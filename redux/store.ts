@@ -1,17 +1,21 @@
 import {applyMiddleware, combineReducers, legacy_createStore as createStore} from "redux";
-import {cryptoTabReducer, weatherTabReducer} from "./reducers";
+import {counterReducer, cryptoTabReducer, weatherTabReducer} from "./reducers";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {persistReducer, persistStore} from "redux-persist";
 import thunk from "redux-thunk";
+import {createNavigationReducer} from "react-navigation-redux-helpers";
+import {Tab} from "../App";
 
 const rootReducer = combineReducers({
     weatherState: weatherTabReducer,
     cryptoState: cryptoTabReducer,
+    counter: counterReducer
 });
 
 const persistConfig = {
     key: 'root',
-    storage: AsyncStorage
+    storage: AsyncStorage,
+    whitelist: ['weatherState', 'cryptoState']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
