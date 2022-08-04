@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {FlatList, Text, View, ListRenderItemInfo} from "react-native";
 import {connect} from "react-redux";
-import {SET_CRYPTO} from "../redux/actions";
+import {SET_CRYPTO} from "../../redux/actions";
 import {Action, Dispatch} from "redux";
-import {AppState, CryptoTabState} from "../redux/reducers";
-import {CryptoInfoViewInner} from "../views/CryptoInfoView";
+import {AppState, CryptoTabState} from "../../redux/reducers";
+import {CryptoInfoViewInner} from "../../views/CryptoInfoView";
 import {NavigationScreenProp, NavigationState} from "react-navigation";
 
 interface ReduxProps {

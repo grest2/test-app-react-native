@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { RootTabScreenProps } from '../types';
-import {FetchItems} from "../Utils/FetchItems";
+import {FetchItems} from "./Views/FetchItems";
 import {createStackNavigator} from "@react-navigation/stack";
 import {CryptoStackParamList} from "../navigation/NavigationUtils";
 import {CryptoInfoViewInner} from "../views/CryptoInfoView";

@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {FlatList, ListRenderItemInfo, StyleSheet, Text, View} from "react-native";
-import {setCounter, setWeather} from "../redux/actions";
-import {useAppDispatch, useAppSelector} from "../hooks/ReduxHooks";
+import {setCounter, setWeather} from "../../redux/actions";
+import {useAppDispatch, useAppSelector} from "../../hooks/ReduxHooks";
 import { AsyncStorage } from "react-native";
 
 

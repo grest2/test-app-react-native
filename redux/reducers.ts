@@ -1,6 +1,6 @@
 import actions, {SET_CRYPTO, SET_COUNTER, SET_WEATHER, SetCityNameAction} from "./actions";
-import {WeatherTabState} from "../Utils/FetchWeather";
-import {Currency} from "../Utils/FetchItems";
+import {WeatherTabState} from "../screens/Views/FetchWeather";
+import {Currency} from "../screens/Views/FetchItems";
 import {NavigationState} from "@react-navigation/routers";
 
 type Action = {

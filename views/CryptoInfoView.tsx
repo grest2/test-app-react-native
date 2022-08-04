@@ -1,4 +1,4 @@
-import {Currency, NavParams} from "../Utils/FetchItems";
+import {Currency, NavParams} from "../screens/Views/FetchItems";
 import React from "react";
 import {Text, View} from "react-native";
 import {NavigationParams, NavigationScreenProp, NavigationState} from "react-navigation";

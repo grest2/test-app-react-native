@@ -5,8 +5,8 @@
 //         payload: name,
 // })
 
-import {Weather} from "../Utils/FetchWeather";
-import {Currency} from "../Utils/FetchItems";
+import {Weather} from "../screens/Views/FetchWeather";
+import {Currency} from "../screens/Views/FetchItems";
 import {NavigationState} from "react-navigation";
 
 export const SET_WEATHER = 'SET_WEATHER';

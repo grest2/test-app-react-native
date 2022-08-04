@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { Text, View } from '../components/Themed';
-import {FetchWeatherComp, WeatherTabState} from "../Utils/FetchWeather";
+import {FetchWeatherComp, WeatherTabState} from "./Views/FetchWeather";
 import {InputText} from "../components/InputComponent";
 import {useState} from "react";
 

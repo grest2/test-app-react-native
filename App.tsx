@@ -12,6 +12,7 @@ import {configureStore, persistor} from "./redux/store";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useEffect, useState} from "react";
+import TabThreeScreen from "./screens/TabThreeScreen";
 
 export const Tab = createBottomTabNavigator();
 
@@ -39,6 +40,10 @@ export default function App() {
                                 <Tab.Screen
                                     name = "Weather Screen"
                                     component={TabTwoScreen}
+                                />
+                                <Tab.Screen
+                                    name = "App Entry Screen"
+                                    component={TabThreeScreen}
                                 />
                             </Tab.Navigator>
                         </SafeAreaProvider>
