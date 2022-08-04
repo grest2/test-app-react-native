@@ -4,7 +4,6 @@ import {setCounter, setWeather} from "../../redux/actions";
 import {useAppDispatch, useAppSelector} from "../../hooks/ReduxHooks";
 import { AsyncStorage } from "react-native";
 
-
 export interface WeatherTabState {
     weather: Weather;
     name: string;
@@ -37,6 +36,7 @@ export const FetchWeatherComp = (props: FetchWeatherProps) => {
             .then((response) => response.json())
             .then((json) => {
                 console.log(json);
+
                 useDispatch(setWeather(json));
             })
             .catch((error) => console.log(error))

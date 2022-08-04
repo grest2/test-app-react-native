@@ -42,9 +42,14 @@ export function LoginScreen( ) {
             .then((response) => response.json())
             .then((json) => {
                 const parsed = json;
-                
                 EncryptedStoreWrapper.saveSession(parsed.session);
-                useDispatch(setUser(parsed.response.user));
+
+                const user = {
+                    id: parsed.response.user.id,
+                    email: parsed.response.user.email,
+                    lastName: parsed.response.user.lastName
+                };
+                useDispatch(setUser(user));
             })
             .catch((error) => console.log(error))
     }
