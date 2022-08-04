@@ -17,4 +17,8 @@ export class EncryptedStoreWrapper {
                 }
             })
     }
+
+    static deleteSession(): Promise<void> {
+        return EncryptedStorage.removeItem(USER_SESSION)
+    }
 }
