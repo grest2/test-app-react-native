@@ -27,7 +27,6 @@ interface State {
 }
 
 export class UserLoggedIn extends React.Component<Props, State> {
-
     onLogout() {
         EncryptedStoreWrapper.deleteSession()
             .then(() => {

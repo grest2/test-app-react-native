@@ -41,8 +41,13 @@ export function LoginScreen( ) {
         fetch("http://portal.wings.sgsdt.com/api/post",{method: "POST", body: JSON.stringify(params), headers: {'Content-Type': 'application/json'}})
             .then((response) => response.json())
             .then((json) => {
+
+                console.log(json)
+
                 const parsed = json;
-                EncryptedStoreWrapper.saveSession(parsed.session);
+                if (parsed.code === 1) {
+                    EncryptedStoreWrapper.saveSession(parsed.session);
+                }
 
                 const user = {
                     id: parsed.response.user.id,
